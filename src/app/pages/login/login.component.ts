@@ -31,5 +31,14 @@ export class LoginComponent {
   get password() {
   return this.loginForm.get('password');
 }
+
+onSubmit() {
+  console.log(this.loginForm.value);
+  if (this.loginForm.valid) {
+  console.log('Formulario válido, ¡listo para enviar!');
+} else {
+  console.log('Formulario inválido, por favor revisa los campos.');
+}
+}
 }
 
