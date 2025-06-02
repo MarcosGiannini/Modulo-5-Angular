@@ -21,4 +21,12 @@ export class AuthService {
     this._isUserLoggedIn = false;
     this._username = null;
   }
+
+  isLogged(): boolean {
+    return this._isUserLoggedIn;
+  }
+
+  getUsername(): string | null {
+    return this._username;
+    }
 }
