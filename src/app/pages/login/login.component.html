@@ -1,0 +1,18 @@
+<form [formGroup]="loginForm">
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" formControlName="username" id="username">
+        <div *ngIf ="username && username.invalid && (username.dirty || username.touched)">
+        <span *ngIf = "username.hasError('required')">El nombre de usuario es obligatorio.</span>    
+
+        </div>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" formControlName="password" id="password">
+        <div *ngIf ="password && password.invalid && (password.dirty || password.touched)">
+        <span *ngIf = "password.hasError('required')">La contraseña es obligatoria.</span>
+        </div>  
+        <button type="submit">Login</button>
+    </div>
+</form>
