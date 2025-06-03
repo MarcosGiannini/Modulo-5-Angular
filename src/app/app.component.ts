@@ -3,6 +3,9 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderPublicComponent } from './layout/header-public/header-public.component';
 import { MenuPublicComponent } from './layout/menu-public/menu-public.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { AuthService } from './services/auth.service';
+import { CommonModule } from '@angular/common';
+import { MenuPrivateComponent } from "./layout/menu-private/menu-private.component";
 
 // En src/app/app.component.ts
 
@@ -10,15 +13,19 @@ import { FooterComponent } from './layout/footer/footer.component';
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, 
+    CommonModule,
+    RouterOutlet,
     HeaderPublicComponent,
     MenuPublicComponent,
-    FooterComponent
-    // Cuando usemos los componentes privados, los añadiremos aquí también
-  ],
+    FooterComponent,
+    MenuPrivateComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'lab-angular'; 
+  constructor(public authService: AuthService) {
+
+  }
 }

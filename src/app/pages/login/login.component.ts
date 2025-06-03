@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -35,9 +37,16 @@ export class LoginComponent {
 onSubmit() {
   console.log(this.loginForm.value);
   if (this.loginForm.valid) {
-  console.log('Formulario válido, ¡listo para enviar!');
+  const esLoginCorrecto = this.authService.login(this.loginForm.value);
+  if (esLoginCorrecto) {
+      console.log('Login exitoso. Redirigiendo al dashboard...');
+      this.router.navigate(['/dashboard']);
+  } else {
+    console.log('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+  }
 } else {
   console.log('Formulario inválido, por favor revisa los campos.');
+  this.loginForm.markAllAsTouched();
 }
 }
 }

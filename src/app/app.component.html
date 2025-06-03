@@ -1,7 +1,9 @@
 <app-header-public></app-header-public>
 
-<app-menu-public></app-menu-public>
-
+<app-menu-public *ngIf="!authService.isLogged()"></app-menu-public>
+<app-menu-private *ngIf="authService.isLogged()"></app-menu-private>
+<button *ngIf="authService.isLogged()" (click)="authService.logout()">Logout</button>
+<p *ngIf="authService.isLogged()">Welcome, {{ authService.getUsername() }}</p>
 <main>
   <router-outlet></router-outlet>
 </main>
