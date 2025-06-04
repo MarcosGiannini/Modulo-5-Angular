@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-@Component({
+@Component({ // Decorador que define el componente
   selector: 'app-menu-private',
   standalone: true,
   imports: [

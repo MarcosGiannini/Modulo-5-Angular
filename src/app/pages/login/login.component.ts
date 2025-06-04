@@ -4,9 +4,9 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
-@Component({
-  selector: 'app-login',
-  standalone: true,
+@Component({ // Selector para el componente de inicio de sesión
+  selector: 'app-login', 
+  standalone: true, 
   imports: [
     ReactiveFormsModule,
     CommonModule
@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent { // Componente para manejar el inicio de sesión
   loginForm!: FormGroup;
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -34,7 +34,7 @@ export class LoginComponent {
   return this.loginForm.get('password');
 }
 
-onSubmit() {
+onSubmit() { // Método para manejar el envío del formulario de inicio de sesión
   console.log(this.loginForm.value);
   if (this.loginForm.valid) {
   const esLoginCorrecto = this.authService.login(this.loginForm.value);
