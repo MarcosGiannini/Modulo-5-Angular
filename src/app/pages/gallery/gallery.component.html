@@ -1,1 +1,30 @@
 <p>gallery works!</p>
+
+<div class="gallery-container">
+  <div class="selected-image-section">
+    <h3>Imagen Seleccionada</h3>
+    <div *ngIf="selectedImage">
+      <img [src]="selectedImage.url" [alt]="selectedImage.title" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+      <p class="image-title">{{ selectedImage.title }}</p>
+    </div>
+    <p *ngIf="!selectedImage">No hay imagen seleccionada en la galería.</p>
+  </div>
+
+  <div class="image-list-section">
+    <h3>Listado de Imágenes</h3>
+    <div class="thumbnail-list">
+      <div *ngFor="let image of galleryItems" class="thumbnail-item">
+        <img [src]="image.url"
+             [alt]="image.title"
+             (click)="selectImage(image)"
+             class="thumbnail">
+        </div>
+    </div>
+  </div>
+
+  <div class="buttons-section">
+    <h3>Botonera</h3>
+    <button (click)="previousImage()" [disabled]="isFirstImage">Anterior</button>
+    <button (click)="nextImage()" [disabled]="isLastImage">Siguiente</button>
+  </div>
+</div>
