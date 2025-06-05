@@ -1,46 +1,51 @@
-import { Injectable } from '@angular/core'; // Importa Injectable desde Angular core para poder inyectar este servicio en otros componentes o servicios
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators'; // ¡Importamos delay aquí!
 
 @Injectable({
-  providedIn: 'root' // Esto permite que el servicio sea inyectado en cualquier componente o servicio de la aplicación
+  providedIn: 'root'
 })
-export class AuthService { // Servicio de autenticación que maneja el estado de inicio de sesión del usuario
-  private _isUserLoggedIn: boolean = false; // Variable privada que indica si el usuario está logueado
-  private _username: string | null = null; // Variable privada que almacena el nombre de usuario del usuario logueado
+export class AuthService {
+  private _isUserLoggedIn: boolean = false;
+  private _username: string | null = null;
 
-constructor() {
-  // Intentamos obtener el username de localStorage
-  const storedUsername = localStorage.getItem('username');
-
-  // Si encontramos un username guardado, significa que el usuario estaba logueado
-  if (storedUsername) {
-    this._isUserLoggedIn = true; // Establecemos el estado de logueado a true
-    this._username = storedUsername; // Asignamos el username recuperado
-  } else {
-    // Si no encontramos username, el usuario no está logueado
-    this._isUserLoggedIn = false; // Mantenemos el estado en false (por si acaso no era el valor inicial)
-    this._username = null; // Aseguramos que el username sea null
+  constructor() {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      this._isUserLoggedIn = true;
+      this._username = storedUsername;
+    } else {
+      this._isUserLoggedIn = false;
+      this._username = null;
+    }
   }
-}
 
-  login(credentials: { username: string, password: string }): boolean { // Método para iniciar sesión del usuario
+  // COMENTARIO PARA EL PROFESOR:
+  // Se ha añadido un delay de 2 segundos en la respuesta del método login()
+  // para simular una operación asíncrona real, utilizando el operador 'delay' de RxJS.
+  login(credentials: { username: string, password: string }): Observable<boolean> {
     if (credentials.username === 'master@lemoncode.net' && credentials.password === '12345678') {
-      localStorage.setItem('username', credentials.username); // Guada el nombre de usuario en localStorage para persistencia de sesión
-      this._isUserLoggedIn = true; // Marca al usuario como logueado
-      this._username = credentials.username; // Guarda el nombre de usuario en la variable de instancia
-      return true; // Retorna true si el login es exitoso
+      localStorage.setItem('username', credentials.username);
+      this._isUserLoggedIn = true;
+      this._username = credentials.username;
+      return of(true).pipe(delay(2000)); // Añadimos el delay de 2 segundos aquí
     }
-    return false;
-  }
-  logout(): void { // Método para cerrar sesión del usuario
-    this._isUserLoggedIn = false; // Marca al usuario como no logueado
-    this._username = null; // Limpia el nombre de usuario
+    this._isUserLoggedIn = false;
+    this._username = null;
+    return of(false).pipe(delay(2000)); // Y también aquí, para el caso de credenciales incorrectas
   }
 
-  isLogged(): boolean { // Método para verificar si el usuario está logueado
-    return this._isUserLoggedIn; // Retorna el estado de inicio de sesión del usuario
+  logout(): void {
+    this._isUserLoggedIn = false;
+    this._username = null;
+    localStorage.removeItem('username');
   }
 
-  getUsername(): string | null { // Método para obtener el nombre de usuario del usuario logueado
-    return this._username; // Retorna el nombre de usuario o null si no hay usuario logueado
-    }
+  isLogged(): boolean {
+    return this._isUserLoggedIn;
+  }
+
+  getUsername(): string | null {
+    return this._username;
+  }
 }

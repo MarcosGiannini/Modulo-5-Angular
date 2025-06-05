@@ -85,3 +85,40 @@
     width: 100%;
   }
 }
+
+// Estilo para la miniatura seleccionada
+.thumbnail.selected-thumbnail {
+  border-color: #ff00ff; // Un color distintivo, puedes cambiarlo (ej. morado brillante)
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.5); // Una sombra para destacarla más
+}
+
+// ... estilos existentes ...
+
+.pagination-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pagination-buttons button {
+  padding: 8px 15px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+.pagination-buttons button:disabled {
+  background-color: #f0f0f0;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+// En gallery.component.scss
+.selected-image-section img {
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%; // Asegúrate de que esta esté para que la imagen no se desborde
+}

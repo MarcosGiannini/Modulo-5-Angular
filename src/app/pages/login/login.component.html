@@ -1,18 +1,23 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div>
+<div class="login-container">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div>
         <label for="username">Username:</label>
-        <input type="text" formControlName="username" id="username">
-        <div *ngIf ="username && username.invalid && (username.dirty || username.touched)">
-        <span *ngIf = "username.hasError('required')">El nombre de usuario es obligatorio.</span>    
-
+        <input id="username" type="text" formControlName="username">
+        <div *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="error-message">
+          <span *ngIf="username?.errors?.['required']">Username es requerido.</span>
         </div>
-    </div>
-    <div>
+      </div>
+      <div>
         <label for="password">Password:</label>
-        <input type="password" formControlName="password" id="password">
-        <div *ngIf ="password && password.invalid && (password.dirty || password.touched)">
-        <span *ngIf = "password.hasError('required')">La contraseña es obligatoria.</span>
-        </div>  
-        <button type="submit">Login</button>
-    </div>
-</form>
+        <input id="password" type="password" formControlName="password">
+        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error-message">
+          <span *ngIf="password?.errors?.['required']">Password es requerido.</span>
+        </div>
+      </div>
+      <div *ngIf="isLoading" class="loading-spinner">
+        Cargando...
+        </div>
+      <button type="submit" [disabled]="loginForm.invalid || isLoading">Login</button>
+    </form>
+  </div>

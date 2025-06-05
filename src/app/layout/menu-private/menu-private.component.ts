@@ -1,15 +1,14 @@
+// En src/app/layout/menu-private/menu-private.component.ts
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router'; // ¡Importa RouterModule!
 
-@Component({ // Decorador que define el componente
+@Component({
   selector: 'app-menu-private',
   standalone: true,
-  imports: [
-    RouterModule
-  ],
+  imports: [RouterModule], // Añádelo aquí
   templateUrl: './menu-private.component.html',
   styleUrl: './menu-private.component.scss'
 })
 export class MenuPrivateComponent {
-
+  // ...
 }
